@@ -14,9 +14,7 @@ function proto_util.remove_quality_tier(previous_quality_name, quality_name, nex
     previous_quality.next = next_quality_name
 
     -- Update the next to be harder to achieve by combining probabilities
-    if next_quality then
-        next_quality.next_probability = (next_quality.next_probability or 1) * (quality.next_probability or 1)
-    end
+    previous_quality.next_probability = (previous_quality.next_probability or 1) * (quality.next_probability or 1)
 
     -- Hide the quality tier
     quality.hidden = true
