@@ -10,9 +10,6 @@ function proto_util.remove_quality_tier(previous_quality_name, quality_name, nex
     local quality            = data.raw.quality[quality_name]
     local next_quality       = next_quality_name and data.raw.quality[next_quality_name] or nil
 
-    -- Hide the quality tier
-    quality.hidden = true
-
     -- Update the previous tier to point to the next tier
     previous_quality.next = next_quality_name
 
@@ -20,6 +17,11 @@ function proto_util.remove_quality_tier(previous_quality_name, quality_name, nex
     if next_quality then
         next_quality.next_probability = (next_quality.next_probability or 1) * (quality.next_probability or 1)
     end
+
+    -- Hide the quality tier
+    quality.hidden = true
+    quality.next = nil
+    quality.next_probability = nil
 
     -- Remove this reference from all technologies that might reference it.
     for technology_name, technology in pairs(data.raw.technology) do
