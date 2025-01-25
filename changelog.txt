@@ -1,0 +1,6 @@
+---------------------------------------------------------------------------------------------------
+Version: 1.0.0
+Date: 25.01.2025
+  Features:
+    - Reduced the amount of quality tiers to "normal", "rare" and "legendary".
+    - Added options to change which qualities to keep and which to remove.
