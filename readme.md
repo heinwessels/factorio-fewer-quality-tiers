@@ -10,7 +10,7 @@ This mod is for players who want to play with quality, but do not want to manage
 
 This should be compatible with mods mods, except for mods changing or removing quality tiers. It adjusts probabilities dynamically, so should be able to handle mods changing the technology tree, etc.
 
-This mod can safely be added to existing games. The items and entities of the removed qualities will still exist.
+This mod can safely be added to existing games. The items and entities of the removed qualities will still exist. However, these items cannot be upcycled to the next quality, so  existing setups with quality modules might stop working.
 
 # Credits
 - [Galdoc](https://www.twitch.tv/galdoc) for the idea as shared on a [podcast with Krydax](https://youtu.be/bm4GPsEYEOM?si=2Cj8i56qN-vlNaBZ)

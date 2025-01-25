@@ -1,6 +1,6 @@
 {
   "name": "fewer-quality-tiers",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "title": "Fewer Quality Tiers",
   "description": "This mod is for players who want to play with quality, but do not want to manage 5 different quality tiers.\nIt reduces the amount of quality tiers. By default it only has `normal`, `rare` and `legendary`, but it's fully configurable with which qualities to keep. It automatically adjusts the probabilities to account for the missing step (or at least attempts to) and adjusts technologies too.",
   "author": "stringweasel",
