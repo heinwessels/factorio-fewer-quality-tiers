@@ -20,8 +20,9 @@ while index <= #tiers do
 
     if not is_tier_enabled[tiers[index]] then
         proto_util.remove_quality_tier(previous_tier, tier, next_tier)
+    else
+        previous_tier = tier
     end
 
-    previous_tier = tier
     index = index + 1
 end
