@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.2
+Date: 18.11.2025
+  Bugfixes:
+    - Fixed an issue where the mod would not correctly remove certain quality tiers based on user settings.
+---------------------------------------------------------------------------------------------------
 Version: 1.0.1
 Date: 25.01.2025
   Bugfixes:
