@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.1.0
+Date: 27.11.2025
+  Changes:
+    - Improved and increased probability when removing quality tiers by better modeling recycling behavior.
+---------------------------------------------------------------------------------------------------
 Version: 1.0.2
 Date: 18.11.2025
   Bugfixes:

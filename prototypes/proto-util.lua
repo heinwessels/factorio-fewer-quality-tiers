@@ -1,5 +1,35 @@
 local proto_util = { }
 
+--- Calculate the new probability to reach the next quality tier
+--- if a quality tier is removed.
+---@param previous_probability number?
+---@param removed_probability number?
+---@return number
+local function calculate_combined_probability(previous_probability, removed_probability)
+    previous_probability = previous_probability or 0 -- Has default of 0
+    removed_probability = removed_probability or 0
+
+    -- Chance to get from previous to next quality directly
+    local direct_chance = previous_probability * removed_probability
+
+    -- Account for items that would have been upgraded to the removed tier. These could
+    -- have been recycled, and if we ignore this math then it's a bit too harsh.
+    -- We will assume that they are put through a legendary recycler setup.
+    -- Model the recycling as extra independent Bernoulli trials on the removed tier.
+    -- The chance of at least one upgrade across those rolls is the complement of every roll failing.
+    -- We multiply that by the probability mass that actually reached the removed tier to keep the direct chain untouched.
+    -- Thanks to pocarski for helping with the math and GPT 5 Codex for turning it into code.
+    local extra_rolls = 7 -- Approximation of how many times item will go through recycler
+    local fail_chance = 0.75 -- To account for the recycler eats your item
+    local per_roll_success = (1 - fail_chance) * removed_probability
+    local recycled =
+        previous_probability
+        * (1 - removed_probability)
+        * (1 - (1 - per_roll_success) ^ extra_rolls)
+
+    return math.min(1, direct_chance + recycled)
+end
+
 ---@param previous_quality_name string
 ---@param quality_name string
 ---@param next_quality_name string?
@@ -8,13 +38,15 @@ function proto_util.remove_quality_tier(previous_quality_name, quality_name, nex
 
     local previous_quality   = data.raw.quality[previous_quality_name]
     local quality            = data.raw.quality[quality_name]
-    local next_quality       = next_quality_name and data.raw.quality[next_quality_name] or nil
 
     -- Update the previous tier to point to the next tier
     previous_quality.next = next_quality_name
 
     -- Update the next to be harder to achieve by combining probabilities
-    previous_quality.next_probability = (previous_quality.next_probability or 1) * (quality.next_probability or 1)
+    previous_quality.next_probability = calculate_combined_probability(
+        previous_quality.next_probability,
+        quality.next_probability
+    )
 
     -- Hide the quality tier
     quality.hidden = true
